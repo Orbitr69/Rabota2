@@ -1,0 +1,56 @@
+#include <stdio.h>
+#define ROWS 4
+#define COLS 5
+
+int Find_max_duplicate(int matrix[ROWS][COLS]) {
+	int max_duplicate = -999999;
+	int found_duplicate = 0;
+	for (int i = 0; i < ROWS; i++) {
+		for (int j = 0; j < COLS; j++) {
+			int current = matrix[i][j];
+			int count = 0;
+
+			for (int k = 0; k < ROWS; k++) {
+				for (int l = 0; l < COLS; l++) {
+					if (matrix[k][l] == current) {
+						count++;
+					}
+				}
+			}
+
+			if (count > 1 && current > max_duplicate) {
+				max_duplicate = current;
+				found_duplicate = 1;
+			}
+		}
+	}
+	return found_duplicate ? max_duplicate : -99999;
+}
+int main() {
+	int matrix[ROWS][COLS] = {
+		{1, 2, 3, 4, 5},
+		{6, 7, 8, 9, 11},
+		{12, 14, 16, 18, 110},
+		{111, 13, 15, 17, 19}
+
+	};
+
+	printf("\n");
+	for (int i = 0; i < ROWS; i++) {
+		for (int j = 0; j < COLS; j++) {
+			printf("%d\t", matrix[i][j]);
+		}
+		printf("\n");
+	}
+
+	int result = Find_max_duplicate(matrix);
+
+	if (result != -999999) {
+		printf("%d", result);
+	}
+	else {
+		printf("nothing was found");
+	}
+
+	return 0;
+}
